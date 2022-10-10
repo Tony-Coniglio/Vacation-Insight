@@ -10,23 +10,37 @@
     </head>
     <body>
         <div class="column is-full has-background-primary p-4">
-            <h1 class="is-size-1">Vacation Insight</h1>
+            <h1 class="is-size-1 has-text-weight-semibold">Vacation Insight</h1>
         </div>
         <div class="columns m-auto">
             <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
                 <input class="input is-info" type="text" placeholder="Search cities">
                 <h2 class="mt-4 is-size-5">Filter Hotels by Price</h2>
-                <input type="checkbox" class="switch is-rounded">
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
                 <p>Results column is here</p>
             </div>
             <div class="column is-one-fifth has-background-info-light-2 p-4 edge-column">
-                <p>City details column</p>
+                <div class="tabs is-fullwidth is-size-5" id="city-tab">
+                    <ul>
+                        <li class="is-active">
+                            <a class="has-text-primary-light">City Details</a>
+                        </li>
+                        <li>
+                            <a class="has-text-primary-light">City Climate</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="has-text-primary-light is-visible" id="city-details">
+                    <p>stuff stuff stuff stuff stuff</p>
+                </div>
+                <div class="has-text-primary-light is-hidden" id="city-climate">
+                    <p>stuff2 stuff2 stuff2 stuff2 stuff2</p>
+                </div>
             </div>
         </div>
         
-
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src ="assets/js/script.js"></script>
     </body>
 </html>
