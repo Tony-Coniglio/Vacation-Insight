@@ -1,0 +1,13 @@
+/* custom colors */
+:root {
+    --background-info-light-2: hsl(204, 86%, 70%);
+}
+
+.edge-column, .main-column {
+    min-height: 100vh;
+}
+
+.has-background-info-light-2
+{
+    background: var(--background-info-light-2);
+}
