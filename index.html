@@ -10,12 +10,58 @@
     </head>
     <body>
         <div class="column is-full has-background-primary p-4">
-            <h1 class="is-size-1 has-text-weight-semibold">Vacation Insight</h1>
+            <h1 class="is-size-1 has-text-weight-bold">Vacation Insight</h1>
         </div>
         <div class="columns m-auto">
             <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
-                <input class="input is-info" type="text" placeholder="Search cities">
-                <h2 class="mt-4 is-size-5">Filter Hotels by Price</h2>
+                <input class="input is-info" type="text" placeholder="Search cities" id="hotel-city">
+                <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
+                <div class="select is-info is-medium mt-4">
+                    <select id="hotel-currency-select">
+                        <option value="USD">Select Currency</option>
+                        <option value="USD">US Dollar</option>
+                        <option value="CAD">Canadian Dollar</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">British Pound</option>
+                        <option value="CHF">Swiss Franc</option>
+                        <option value="CNY">Chinese Yuan</option>
+                        <option value="HKD">Hong Kong Dollar</option>
+                        <option value="KRW">Korean Won</option>
+                        <option value="JPY">Japanese Yen</option>
+                        <option value="NZD">New Zealand Dollar</option>
+                    </select>
+                </div>
+                <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
+                <h2 class="mt-4 is-size-5">Select Hotel Minimum Rating</h2>
+                <div class="control mt-1" id="hotel-rating">
+                    <label class="radio">
+                        <input type="radio" name="review" value="1">
+                        1
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="2">
+                        2
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" checked value="3">
+                        3
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="4">
+                        4
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="5">
+                        5
+                        </input>
+                    </label>
+                </div>
+                <button class="button is-primary mt-4" id="hotel-search">Search</button>
+                <div class="is-size-7 has-text-danger" id="search-warning"></div>
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
                 <p>Results column is here</p>
@@ -31,6 +77,7 @@
                         </li>
                     </ul>
                 </div>
+                <!-- Put city detail and climate stuff in the elements below -->
                 <div class="has-text-primary-light is-visible" id="city-details">
                     <p>stuff stuff stuff stuff stuff</p>
                 </div>
