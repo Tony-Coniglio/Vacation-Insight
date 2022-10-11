@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="styleshhet" type="text/css" href = "assets/css/style.css">
-    <title>Vacation Insight</title>
-</head>
-<body>
-    <script src ="assets/js/script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <link rel="stylesheet" type="text/css" href = "assets/css/style.css">
+        <title>Vacation Insight</title>
+    </head>
+    <body>
+        <div class="column is-full has-background-primary p-4">
+            <h1 class="is-size-1 has-text-weight-bold">Vacation Insight</h1>
+        </div>
+        <div class="columns m-auto">
+            <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
+                <input class="input is-info" type="text" placeholder="Search cities" id="hotel-city">
+                <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
+                <div class="select is-info is-medium mt-4">
+                    <select id="hotel-currency-select">
+                        <option value="USD">Select Currency</option>
+                        <option value="USD">US Dollar</option>
+                        <option value="CAD">Canadian Dollar</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">British Pound</option>
+                        <option value="CHF">Swiss Franc</option>
+                        <option value="CNY">Chinese Yuan</option>
+                        <option value="HKD">Hong Kong Dollar</option>
+                        <option value="KRW">Korean Won</option>
+                        <option value="JPY">Japanese Yen</option>
+                        <option value="NZD">New Zealand Dollar</option>
+                    </select>
+                </div>
+                <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
+                <h2 class="mt-4 is-size-5">Select Hotel Minimum Rating</h2>
+                <div class="control mt-1" id="hotel-rating">
+                    <label class="radio">
+                        <input type="radio" name="review" value="1">
+                        1
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="2">
+                        2
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" checked value="3">
+                        3
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="4">
+                        4
+                        </input>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="review" value="5">
+                        5
+                        </input>
+                    </label>
+                </div>
+                <button class="button is-primary mt-4" id="hotel-search">Search</button>
+                <div class="is-size-7 has-text-danger" id="search-warning"></div>
+            </nav>
+            <div class="column is-three-fifths has-background-primary-light p-4 main-column">
+                <p>Results column is here</p>
+            </div>
+            <div class="column is-one-fifth has-background-info-light-2 p-4 edge-column">
+                <div class="tabs is-fullwidth is-size-5" id="city-tab">
+                    <ul>
+                        <li class="is-active">
+                            <a class="has-text-primary-light">City Details</a>
+                        </li>
+                        <li>
+                            <a class="has-text-primary-light">City Climate</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Put city detail and climate stuff in the elements below -->
+                <div class="has-text-primary-light is-visible" id="city-details">
+                    <p>stuff stuff stuff stuff stuff</p>
+                </div>
+                <div class="has-text-primary-light is-hidden" id="city-climate">
+                    <p>stuff2 stuff2 stuff2 stuff2 stuff2</p>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src ="assets/js/script.js"></script>
+    </body>
 </html>
