@@ -11,6 +11,7 @@ function searchHotels(e)
 	var errMsg = "";
 	//city name input, this should be replaced by the auto-complete api
 	var cityName = $('#hotel-city').val();
+	console.log(cityName);
 	if(cityName === "")
 	{
 		errMsg += "<p>Please enter a city.</p>"
@@ -61,6 +62,8 @@ function addressAutocomplete(containerElement, callback, options) {
     var inputElement = document.createElement("input");
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("placeholder", options.placeholder);
+	inputElement.setAttribute("class", "input is-info");
+	inputElement.setAttribute("id", "hotel-city");
     containerElement.appendChild(inputElement);
   
     // add input field clear button

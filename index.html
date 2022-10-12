@@ -5,9 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-        <link rel="stylesheet" type="text/css" href = "assets/css/style.css">
         <script src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
+        <link rel="stylesheet" type="text/css" href = "assets/css/style.css">
         <title>Vacation Insight</title>
     </head>
     <body>
@@ -17,7 +17,6 @@
         <div class="columns m-auto">
             <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
                 <div class="autocomplete-container" id="autocomplete-container-city"></div>
-                <input class="input is-info" type="text" placeholder="Search cities" id="hotel-city">
                 <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
                 <div class="select is-info is-medium mt-4">
                     <select id="hotel-currency-select">
@@ -36,22 +35,24 @@
                 </div>
                 <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
                 <h2 class="mt-4 is-size-5">Hotel Minimum Rating</h2>
-                <div class="select is-info is-medium mt-4">
-                    <select id="hotel-rating-select">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                    <button class="button is-primary mt-4" id="hotel-search">Search</button>
-                </div>
+                <div class="is-flex is-flex-direction-row is-align-items-end is-justify-content-space-between">
+                    <div class="select is-info is-medium mt-4">
+                        <select id="hotel-rating-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <button class="button is-primary mt-4 is-medium" id="hotel-search">Search</button>
+                </div>      
                 <div class="is-size-7 has-text-danger" id="search-warning"></div>
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
