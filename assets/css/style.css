@@ -60,3 +60,23 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
   
+  .clear-button {
+    color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    
+    position: absolute;
+    right: 5px;
+    top: 0;
+  
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .clear-button.visible {
+    display: flex;
+  }
+  
+  .clear-button:hover {
+    color: rgba(0, 0, 0, 0.6);
+  }
