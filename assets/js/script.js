@@ -11,13 +11,6 @@ var dayOut = moment().add(5, 'd').format("DD");
 var monthOut = moment().add(5, 'd').format("MM");
 var yearOut = moment().add(5, 'd').format("YYYY");
 
-console.log(dayIn);
-console.log(monthIn);
-console.log(yearIn);
-console.log(dayOut);
-console.log(monthOut);
-console.log(yearOut);
-
 const options = {
     method: 'GET',
     headers: {
@@ -26,14 +19,14 @@ const options = {
     }
 };
 
-// reach into the html and grabe the button
+// reach into the html and grab the button
 var btn = document.querySelector('#search-button');
 
 // listen for a click
 function getHotelInfo (event, cityName) {
     // go get the users data
-    // reach into the thml and grabe the area w/ the user input
-    // drill down into that obj and grabe the actual data and put it in aa var call cityName
+    // reach into the thml and grab the area w/ the user input
+    // drill down into that obj and grab the actual data and put it in aa var call cityName
 
 
 
