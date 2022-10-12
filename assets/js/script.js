@@ -1,7 +1,22 @@
 // Hotels API
+
+
 var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
 
+var dayIn = moment().format("DD");
+var monthIn = moment().format("MM");
+var yearIn = moment().format("YYYY");
 
+var dayOut = moment().add(5, 'd').format("DD");
+var monthOut = moment().add(5, 'd').format("MM");
+var yearOut = moment().add(5, 'd').format("YYYY");
+
+console.log(dayIn);
+console.log(monthIn);
+console.log(yearIn);
+console.log(dayOut);
+console.log(monthOut);
+console.log(yearOut);
 
 const options = {
     method: 'GET',
@@ -27,10 +42,10 @@ function getHotelInfo (event, cityName) {
     fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
         .then(response => response.json())
         .then(response => {
-
             console.log(response)
             const gaiaId = response.sr[0].gaiaId;
             console.log(gaiaId)
+            // console.log('{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}');
 
             const options2 = {
                 method: 'POST',
@@ -39,9 +54,9 @@ function getHotelInfo (event, cityName) {
                     'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
                     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
                 },
-                body: '{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":10,"month":10,"year":2022},"checkOutDate":{"day":15,"month":10,"year":2022},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}'
+                body: '{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}'
             };
-
+            console.log(options2.body);
             fetch(requestURL, options2)
                 .then(response2 => response2.json())
                 .then(response2 => {
@@ -56,7 +71,7 @@ function getHotelInfo (event, cityName) {
 
                     console.log(response2)
                 })
-                .catch(err => console.error(err));
+                .catch(err => console.log(err));
         })
         .catch(err => console.error(err));
 
