@@ -35,9 +35,9 @@ function getHotelInfo (event, cityName) {
     fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
         .then(response => response.json())
         .then(response => {
-            console.log(response)
+            console.log(response);
             const gaiaId = response.sr[0].gaiaId;
-            console.log(gaiaId)
+            console.log(gaiaId);
             // console.log('{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}');
 
             const options2 = {
@@ -55,20 +55,20 @@ function getHotelInfo (event, cityName) {
                 .then(response2 => {
                     var hotelData = response2.data.propertySearch.properties;
                     for (var i = 0; i < hotelData.length; i++) {
-                        console.log(hotelData[i].name)
-                        console.log(hotelData[i].reviews.score)
-                        console.log(hotelData[i].price.lead.currencyInfo.code)
-                        console.log(response2.data.propertySearch.filterMetadata.priceRange.max)
-                        console.log(hotelData[i].propertyImage.image.url)
+                        console.log(hotelData[i].name);
+                        console.log(hotelData[i].reviews.score);
+                        console.log(hotelData[i].price.lead.currencyInfo.code);
+                        console.log(response2.data.propertySearch.filterMetadata.priceRange.max);
+                        console.log(hotelData[i].propertyImage.image.url);
                     }
 
-                    console.log(response2)
+                    console.log(response2);
                 })
                 .catch(err => console.log(err));
         })
         .catch(err => console.error(err));
 
-};
+}
 var citiesTab = $('#city-tab');
 var searchButton = $('#hotel-search');
 searchButton.on('click', searchHotels);
@@ -109,7 +109,8 @@ function searchHotels(e)
 
 //swaps the city detail tab based on which one is focused.
 function citiesTabClicked (event)
-{
+{   
+    console.log("clicked");
 	var parent = $(event.target).parent();
 	var sibling = $(parent).siblings();
 	if(!parent.hasClass('is-active'))
