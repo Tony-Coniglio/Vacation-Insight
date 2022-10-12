@@ -1,6 +1,3 @@
-// Hotels API
-
-
 var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
 
 var dayIn = moment().format("DD");
@@ -19,17 +16,14 @@ const options = {
     }
 };
 
-// reach into the html and grab the button
 var btn = document.querySelector('#search-button');
 
-// listen for a click
-function getHotelInfo (event, cityName) {
-    // go get the users data
-    // reach into the thml and grab the area w/ the user input
-    // drill down into that obj and grab the actual data and put it in aa var call cityName
+function getHotelInfo (event, cityName, currencyType, maximumBudget) {
 
 
-
+    // console.log(hotelMinRating + "rating");
+    // hotelMinRating*=5;
+    // console.log(hotelMinRating);
     // insert data into first url
     console.log(cityName);
     fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
@@ -38,7 +32,7 @@ function getHotelInfo (event, cityName) {
             console.log(response);
             const gaiaId = response.sr[0].gaiaId;
             console.log(gaiaId);
-            // console.log('{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}');
+            // console.log('{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}');
 
             const options2 = {
                 method: 'POST',
@@ -47,19 +41,40 @@ function getHotelInfo (event, cityName) {
                     'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
                     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
                 },
-                body: '{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}'
+                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
             };
             console.log(options2.body);
             fetch(requestURL, options2)
                 .then(response2 => response2.json())
                 .then(response2 => {
                     var hotelData = response2.data.propertySearch.properties;
+                    console.log(hotelData)
+                    
                     for (var i = 0; i < hotelData.length; i++) {
-                        console.log(hotelData[i].name);
-                        console.log(hotelData[i].reviews.score);
-                        console.log(hotelData[i].price.lead.currencyInfo.code);
-                        console.log(response2.data.propertySearch.filterMetadata.priceRange.max);
-                        console.log(hotelData[i].propertyImage.image.url);
+                        
+                        var hotelName = hotelData[i].name;
+                        var hotelScore = hotelData[i].reviews.score;
+                        var hotelCode = hotelData[i].price.lead.currencyInfo.code;
+                        var hotelMaxPrice = response2.data.propertySearch.filterMetadata.priceRange.max;
+                        var hotelImageUrl = hotelData[i].propertyImage.image.url;
+                        
+                    
+                        // create an html element w/ js
+                        var resultCard = document.createElement('div');
+                        // append that html element to some element that is currently on the screen
+                        document.body.appendChild[2]('div');
+                        
+                        // -- add a class called result card
+                        // -- append that dive to the result div
+                        // -- create a ul
+                        var ul = document.createElement('ul');
+                        // -- append that ul the result-card
+                        document.body.appendChild('ul');
+                        // -- create the li that holds prop-name
+
+                        // -- append that to the ul that you created
+
+
                     }
 
                     console.log(response2);
@@ -96,14 +111,14 @@ function searchHotels(e)
 		errMsg += "<p>Please enter a number for the budget.</p>";
 	}
 
-	var hotelMinRating = $('hotel-rating-select').val();
+	var hotelMinRating = $('#hotel-rating-select').val();
 
 	if(errMsg.length > 0)
 	{
 		$('#search-warning').append(errMsg);
 		return;
 	}
-    getHotelInfo(e, cityName);
+    getHotelInfo(e, cityName, currencyType, maximumBudget);
 }
 
 

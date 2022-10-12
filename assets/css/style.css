@@ -80,3 +80,8 @@
   .clear-button:hover {
     color: rgba(0, 0, 0, 0.6);
   }
+
+  .result-card {
+    margin-bottom: 20px;
+    border: 1px solid orange;
+  }
