@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <link rel="stylesheet" type="text/css" href = "assets/css/style.css">
+        <script src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
         <title>Vacation Insight</title>
     </head>
     <body>
@@ -14,6 +16,7 @@
         </div>
         <div class="columns m-auto">
             <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
+                <div class="autocomplete-container" id="autocomplete-container-city"></div>
                 <input class="input is-info" type="text" placeholder="Search cities" id="hotel-city">
                 <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
                 <div class="select is-info is-medium mt-4">
@@ -79,10 +82,14 @@
                 </div>
                 <!-- Put city detail and climate stuff in the elements below -->
                 <div class="has-text-primary-light is-visible" id="city-details">
-                    <p>stuff stuff stuff stuff stuff</p>
+                     <div>
+                        <a class="teleport-widget-link" href="https://teleport.org/cities/tokyo/">Life quality score - Tokyo</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/tokyo/widget/scores/?currency=USD" data-max-width="350" data-height="500" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
+                    </div>
                 </div>
                 <div class="has-text-primary-light is-hidden" id="city-climate">
-                    <p>stuff2 stuff2 stuff2 stuff2 stuff2</p>
+                    <div>
+                        <a class="teleport-widget-link" href="https://teleport.org/cities/tokyo/">Climate - Tokyo</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/tokyo/widget/weather/?currency=USD" data-max-width="770" data-height="400" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
+                    </div> 
                 </div>
             </div>
         </div>
