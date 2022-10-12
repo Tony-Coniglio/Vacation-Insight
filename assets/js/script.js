@@ -1,3 +1,74 @@
+// Hotels API
+
+
+var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
+
+var dayIn = moment().format("DD");
+var monthIn = moment().format("MM");
+var yearIn = moment().format("YYYY");
+
+var dayOut = moment().add(5, 'd').format("DD");
+var monthOut = moment().add(5, 'd').format("MM");
+var yearOut = moment().add(5, 'd').format("YYYY");
+
+const options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
+        'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
+    }
+};
+
+// reach into the html and grab the button
+var btn = document.querySelector('#search-button');
+
+// listen for a click
+function getHotelInfo (event, cityName) {
+    // go get the users data
+    // reach into the thml and grab the area w/ the user input
+    // drill down into that obj and grab the actual data and put it in aa var call cityName
+
+
+
+    // insert data into first url
+    console.log(cityName);
+    fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            const gaiaId = response.sr[0].gaiaId;
+            console.log(gaiaId);
+            // console.log('{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}');
+
+            const options2 = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
+                    'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
+                },
+                body: '{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}'
+            };
+            console.log(options2.body);
+            fetch(requestURL, options2)
+                .then(response2 => response2.json())
+                .then(response2 => {
+                    var hotelData = response2.data.propertySearch.properties;
+                    for (var i = 0; i < hotelData.length; i++) {
+                        console.log(hotelData[i].name);
+                        console.log(hotelData[i].reviews.score);
+                        console.log(hotelData[i].price.lead.currencyInfo.code);
+                        console.log(response2.data.propertySearch.filterMetadata.priceRange.max);
+                        console.log(hotelData[i].propertyImage.image.url);
+                    }
+
+                    console.log(response2);
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.error(err));
+
+}
 var citiesTab = $('#city-tab');
 var searchButton = $('#hotel-search');
 searchButton.on('click', searchHotels);
@@ -32,13 +103,14 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-
+    getHotelInfo(e, cityName);
 }
 
 
 //swaps the city detail tab based on which one is focused.
 function citiesTabClicked (event)
-{
+{   
+    console.log("clicked");
 	var parent = $(event.target).parent();
 	var sibling = $(parent).siblings();
 	if(!parent.hasClass('is-active'))
