@@ -23,8 +23,7 @@ function searchHotels(e)
 		errMsg += "<p>Please enter a number for the budget.</p>";
 	}
 
-	var hotelMinRating = $('input:radio[name=review]:checked').val();
-	console.log(maximumBudget);
+	var hotelMinRating = $('hotel-rating-select').val();
 
 	if(errMsg.length > 0)
 	{

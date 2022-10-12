@@ -32,35 +32,23 @@
                     </select>
                 </div>
                 <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
-                <h2 class="mt-4 is-size-5">Select Hotel Minimum Rating</h2>
-                <div class="control mt-1" id="hotel-rating">
-                    <label class="radio">
-                        <input type="radio" name="review" value="1">
-                        1
-                        </input>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="review" value="2">
-                        2
-                        </input>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="review" checked value="3">
-                        3
-                        </input>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="review" value="4">
-                        4
-                        </input>
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="review" value="5">
-                        5
-                        </input>
-                    </label>
+                <h2 class="mt-4 is-size-5">Hotel Minimum Rating</h2>
+                <div class="select is-info is-medium mt-4">
+                    <select id="hotel-rating-select">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button class="button is-primary mt-4" id="hotel-search">Search</button>
                 </div>
-                <button class="button is-primary mt-4" id="hotel-search">Search</button>
                 <div class="is-size-7 has-text-danger" id="search-warning"></div>
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
@@ -86,7 +74,6 @@
                 </div>
             </div>
         </div>
-        
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src ="assets/js/script.js"></script>
     </body>
