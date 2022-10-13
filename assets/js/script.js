@@ -17,6 +17,51 @@ const options = {
 };
 
 var btn = document.querySelector('#search-button');
+createCard ("","","","","");
+function createCard(hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageUrl) {
+
+  hotelName = "Hotel";
+  hotelScore = "10";
+  hotelCode = "USD";
+  hotelMaxPrice = "500";
+  hotelImageUrl = "Picture";
+
+                  
+  var cardContainer = document.querySelector("#card-container");
+  var card = document.createElement('div');
+  card.setAttribute("class", "card");
+  cardContainer.append(card);
+
+  var cardContent = document.createElement('div');
+  cardContent.setAttribute("class", "card-content");
+  card.append(cardContent);
+
+  var title = document.createElement('p');
+  title.setAttribute("class", "title");
+  title.innerHTML += hotelImageUrl;
+  cardContent.append(title);
+
+  var subtitle = document.createElement('p');
+  subtitle.setAttribute("class", "subtitle");
+  subtitle.innerHTML += hotelName;
+  cardContent.append(subtitle);
+
+  var footer = document.createElement('footer');
+  footer.setAttribute("class", "card-footer");
+  card.append(footer);
+
+  var footerItem1 = document.createElement("p");
+  footerItem1.setAttribute("class", "card-footer-item");
+  footerItem1.innerHTML += hotelScore;
+  footer.append(footerItem1);
+
+  var footerItem2 = document.createElement("p");
+  footerItem2.setAttribute("class", "card-footer-item");
+  footerItem2.innerHTML += hotelMaxPrice + "\t" + hotelCode ;
+  footer.append(footerItem2);
+
+  }
+
 
 function getHotelInfo (event, cityName, currencyType, maximumBudget) {
 
@@ -41,7 +86,7 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
                     'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
                     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
                 },
-                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
+                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":20,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
             };
             console.log(options2.body);
             fetch(requestURL, options2)
@@ -60,20 +105,7 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
                         
                     
                         // create an html element w/ js
-                        var resultCard = document.createElement('div');
-                        // append that html element to some element that is currently on the screen
-                        document.body.appendChild[2]('div');
-                        
-                        // -- add a class called result card
-                        // -- append that dive to the result div
-                        // -- create a ul
-                        var ul = document.createElement('ul');
-                        // -- append that ul the result-card
-                        document.body.appendChild('ul');
-                        // -- create the li that holds prop-name
-
-                        // -- append that to the ul that you created
-
+                        createCard (hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageUrl);
 
                     }
 
@@ -118,7 +150,7 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-    getHotelInfo(e, cityName, currencyType, maximumBudget);
+    // getHotelInfo(e, cityName, currencyType, maximumBudget);
 }
 
 
