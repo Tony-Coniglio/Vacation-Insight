@@ -80,3 +80,8 @@
   .clear-button:hover {
     color: rgba(0, 0, 0, 0.6);
   }
+
+  iframe {
+    display: flex;
+    margin: auto;
+  }
