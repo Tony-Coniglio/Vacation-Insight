@@ -108,3 +108,8 @@
     text-decoration:none;
     color:black;
  }
+
+  .result-card {
+    margin-bottom: 20px;
+    border: 1px solid orange;
+  }
