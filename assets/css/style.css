@@ -85,3 +85,26 @@
     display: flex;
     margin: auto;
   }
+
+  
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  .responsive {
+    max-width: 100%;
+    height: auto;
+  }
+  #images{
+    text-align:center;
+    margin:50px auto; 
+}
+#images a{
+    margin:0px 20px;
+    display:inline-block;
+    text-decoration:none;
+    color:black;
+ }
