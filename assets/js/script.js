@@ -18,7 +18,7 @@ const options = {
 
 var btn = document.querySelector('#search-button');
 // createCard ("","","","","");
-function createCard(hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageUrl) {
+function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl) {
 
   // hotelName = "Hotel";
   // hotelScore = "10";
@@ -41,11 +41,10 @@ function createCard(hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageU
   var hotelImage = document.createElement("img");
   hotelImage.setAttribute("src", hotelImageUrl);
   figure.append(hotelImage);
-  // title.innerHTML += hotelImageUrl;
   cardContent.append(figure);
 
   var subtitle = document.createElement('p');
-  subtitle.setAttribute("class", "subtitle");
+  subtitle.setAttribute("class", "subtitle has-text-weight-bold");
   subtitle.innerHTML += hotelName;
   cardContent.append(subtitle);
 
@@ -55,12 +54,12 @@ function createCard(hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageU
 
   var footerItem1 = document.createElement("p");
   footerItem1.setAttribute("class", "card-footer-item");
-  footerItem1.innerHTML += hotelScore;
+  footerItem1.innerHTML += "Hotel Rating: " + hotelScore + "/10";
   footer.append(footerItem1);
 
   var footerItem2 = document.createElement("p");
   footerItem2.setAttribute("class", "card-footer-item");
-  footerItem2.innerHTML += hotelMaxPrice + "\t" + hotelCode ;
+  footerItem2.innerHTML += "Hotel Price: " + hotelPriceActual + "\t" + hotelCode ;
   footer.append(footerItem2);
 
   }
@@ -89,7 +88,7 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
                     'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
                     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
                 },
-                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":20,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
+                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":20,"sort":"DISTANCE","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
             };
             console.log(options2.body);
             fetch(requestURL, options2)
@@ -104,11 +103,12 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
                         var hotelScore = hotelData[i].reviews.score;
                         var hotelCode = hotelData[i].price.lead.currencyInfo.code;
                         var hotelMaxPrice = response2.data.propertySearch.filterMetadata.priceRange.max;
+                        var hotelPriceActual = hotelData[i].price.lead.amount;
                         var hotelImageUrl = hotelData[i].propertyImage.image.url;
                         
                     
                         // create an html element w/ js
-                        createCard (hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageUrl);
+                        createCard (hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl);
 
                     }
 
@@ -153,9 +153,22 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-    // getHotelInfo(e, cityName, currencyType, maximumBudget);
+
+    clearCards();
+
+    getHotelInfo(e, cityName, currencyType, maximumBudget);
 }
 
+function clearCards () {
+  var cardClearer = document.querySelector("#card-container");
+  if (cardClearer.children.length > 0) {
+    while (cardClearer.firstChild) {
+      cardClearer.removeChild(cardClearer.lastChild);
+    }
+  }
+  
+
+}
 
 //swaps the city detail tab based on which one is focused.
 function citiesTabClicked (event)
