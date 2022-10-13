@@ -20,7 +20,10 @@ An in-depth paragraph about your project and overview of use.
 ###
 
 
-###
+### Auto Complete API
+
+
+### Widgets API
 
 
 ###
@@ -32,20 +35,11 @@ An in-depth paragraph about your project and overview of use.
 ###
 
 
-###
-
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
 
 ## Authors
 
 Contributors names and contact info
+Payton Ray
 
 
 ## Version History
