@@ -17,29 +17,32 @@ const options = {
 };
 
 var btn = document.querySelector('#search-button');
-createCard ("","","","","");
+// createCard ("","","","","");
 function createCard(hotelName, hotelScore, hotelCode, hotelMaxPrice, hotelImageUrl) {
 
-  hotelName = "Hotel";
-  hotelScore = "10";
-  hotelCode = "USD";
-  hotelMaxPrice = "500";
-  hotelImageUrl = "Picture";
+  // hotelName = "Hotel";
+  // hotelScore = "10";
+  // hotelCode = "USD";
+  // hotelMaxPrice = "500";
+  // hotelImageUrl = "Picture";
 
                   
   var cardContainer = document.querySelector("#card-container");
   var card = document.createElement('div');
-  card.setAttribute("class", "card");
+  card.setAttribute("class", "card mb-4");
   cardContainer.append(card);
 
   var cardContent = document.createElement('div');
   cardContent.setAttribute("class", "card-content");
   card.append(cardContent);
 
-  var title = document.createElement('p');
-  title.setAttribute("class", "title");
-  title.innerHTML += hotelImageUrl;
-  cardContent.append(title);
+  var figure = document.createElement("figure");
+  figure.setAttribute("class", "image is-2by1");
+  var hotelImage = document.createElement("img");
+  hotelImage.setAttribute("src", hotelImageUrl);
+  figure.append(hotelImage);
+  // title.innerHTML += hotelImageUrl;
+  cardContent.append(figure);
 
   var subtitle = document.createElement('p');
   subtitle.setAttribute("class", "subtitle");
