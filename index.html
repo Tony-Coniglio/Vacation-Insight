@@ -12,8 +12,11 @@
         <title>Vacation Insight</title>
     </head>
     <body>
-        <div class="column is-full has-background-primary p-4">
-            <h1 class="is-size-1 has-text-weight-bold">Vacation Insight</h1>
+        <div class="column is-full has-background-info-light-2 p-4 is-flex is-flex-direction-row is-align-items-center">
+            <span class="icon is-large is-flex mr-2">
+                <img class="icon is-large" src="./assets/images/airplane-takeoff-dark.png" alt="icon of airplane taking off">
+            </span>
+            <h1 class="is-size-2 has-text-weight-semibold has-text-dark">Vacation Insight</h1>
         </div>
         <div class="columns m-auto">
             <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
@@ -35,31 +38,41 @@
                     </select>
                 </div>
                 <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
-                <h2 class="mt-4 is-size-5">Hotel Minimum Rating</h2>
-                <div class="is-flex is-flex-direction-row is-align-items-end is-justify-content-space-between">
-                    <div class="select is-info is-medium mt-4">
-                        <select id="hotel-rating-select">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                    <button class="button is-primary mt-4 is-medium" id="hotel-search">Search</button>
-                </div>      
+                <button class="button is-primary mt-4 is-medium" id="hotel-search">Search</button>
                 <div class="is-size-7 has-text-danger" id="search-warning"></div>
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
-                <p>Results column is here</p>
+               
+
+                
+<!-- card content with hotel price/ratings at the bottom -->
+
+                <div class="card mb-4">
+                    <div class="card-content">
+                        <figure class="image is-2by1">
+                            <img src="https://bulma.io/images/placeholders/640x320.png">
+                          </figure>
+                      <p class="subtitle has-text-weight-bold">
+                        name of hotel
+                      </p>
+                    </div>
+                    <footer class="card-footer">
+                      <p class="card-footer-item">
+                        <span>
+                          <a href="insert link for hotel">hotel rating</a>
+                        </span>
+                      </p>
+                      <p class="card-footer-item">
+                        <span>
+                          <a href="#">hotel price</a>
+                        </span>
+                      </p>
+                    </footer>
+                  </div>
+
+                  
             </div>
-            <div class="column is-one-fifth has-background-info-light-2 p-4 edge-column">
+            <div class="column is-one-fifth has-background-primary p-4 edge-column">
                 <div class="tabs is-fullwidth is-size-5" id="city-tab">
                     <ul>
                         <li class="is-active">

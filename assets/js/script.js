@@ -96,8 +96,6 @@ function searchHotels(e)
 		errMsg += "<p>Please enter a number for the budget.</p>";
 	}
 
-	var hotelMinRating = $('hotel-rating-select').val();
-
 	if(errMsg.length > 0)
 	{
 		$('#search-warning').append(errMsg);
