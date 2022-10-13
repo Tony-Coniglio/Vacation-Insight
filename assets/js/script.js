@@ -1,8 +1,44 @@
+//Local Storage Get
+function populateSearches() {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  //add dom stuff, call search function
+}
+
+function storeSearch(cityName, currencyType, maximumBudget) {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  var searchObject = {
+    "cityName" : cityName,
+    "currencyType" : currencyType,
+    "maximumBudget" : maximumBudget
+  };
+  if(storedSearches && storedSearches.length >= 5)
+  {
+    if(!storedSearches.some(function(element, index, array) {
+      return JSON.stringify(element) === JSON.stringify(searchObject);
+    }))
+    {
+      storedSearches.shift();
+      storedSearches.push(searchObject);
+    }
+  }
+  else if(!storedSearches) 
+  {
+    storedSearches = [];
+    storedSearches.push(searchObject);
+  }
+  else 
+  {
+    if(!storedSearches.some(function(element, index, array) {
+      return JSON.stringify(element) === JSON.stringify(searchObject);
+    }))
+    {
+      storedSearches.push(searchObject);
+    }
+  }
+  localStorage.setItem("searches", JSON.stringify(storedSearches));
+}
 // Hotels API
-
-
 var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
-
 var dayIn = moment().format("DD");
 var monthIn = moment().format("MM");
 var yearIn = moment().format("YYYY");
@@ -101,7 +137,8 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-    getHotelInfo(e, cityName);
+  storeSearch(cityName, currencyType, maximumBudget);
+//    getHotelInfo(e, cityName);
 }
 
 
@@ -339,4 +376,3 @@ function addressAutocomplete(containerElement, callback, options) {
   }, {
       placeholder: "Enter a city name here"
   });
-  
