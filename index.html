@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <script src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-        href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <title>Vacation Insight</title>
-</head>
-
-<body>
-    <div class="column is-full has-background-info-light-2 p-4 is-flex is-flex-direction-row is-align-items-center">
-        <span class="icon is-large is-flex mr-2">
-            <img class="icon is-large" src="./assets/images/airplane-takeoff-dark.png"
-                alt="icon of airplane taking off">
-        </span>
-        <h1 class="is-size-2 has-text-weight-semibold has-text-dark">Vacation Insight</h1>
-    </div>
-    <div class="columns m-auto">
-        <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
-            <div class="autocomplete-container" id="autocomplete-container-city"></div>
-            <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
-            <div class="select is-info is-medium mt-4">
-                <select id="hotel-currency-select">
-                    <option value="USD">Select Currency</option>
-                    <option value="USD">US Dollar</option>
-                    <option value="CAD">Canadian Dollar</option>
-                    <option value="EUR">Euro</option>
-                    <option value="GBP">British Pound</option>
-                    <option value="CHF">Swiss Franc</option>
-                    <option value="CNY">Chinese Yuan</option>
-                    <option value="HKD">Hong Kong Dollar</option>
-                    <option value="KRW">Korean Won</option>
-                    <option value="JPY">Japanese Yen</option>
-                    <option value="NZD">New Zealand Dollar</option>
-                </select>
-            </div>
-            <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget"
-                id="hotel-currency-quantity">
-            <button class="button is-primary mt-4 is-medium" id="hotel-search">Search</button>
-            <div class="is-size-7 has-text-danger" id="search-warning"></div>
-        </nav>
-        <div class="column is-three-fifths has-background-primary-light p-4 main-column">
-
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
+        <link rel="stylesheet" type="text/css" href = "assets/css/style.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+        <title>Vacation Insight</title>
+    </head>
+    <body>
+        <div class="column is-full has-background-info-light-2 p-4 is-flex is-flex-direction-row is-align-items-center">
+            <span class="icon is-large is-flex mr-2">
+                <img class="icon is-large" src="./assets/images/airplane-takeoff-dark.png" alt="icon of airplane taking off">
+            </span>
+            <h1 class="is-size-2 has-text-weight-semibold has-text-dark">Vacation Insight</h1>
+        </div>
+        <div class="columns m-auto">
+            <nav class="column is-one-fifth has-background-info-light p-4 edge-column">
+                <div class="autocomplete-container" id="autocomplete-container-city"></div>
+                <h2 class="mt-4 is-size-5">Hotel Filter Parameters</h2>
+                <div class="select is-info is-medium mt-4">
+                    <select id="hotel-currency-select">
+                        <option value="USD">Select Currency</option>
+                        <option value="USD">US Dollar</option>
+                        <option value="CAD">Canadian Dollar</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">British Pound</option>
+                        <option value="CHF">Swiss Franc</option>
+                        <option value="CNY">Chinese Yuan</option>
+                        <option value="HKD">Hong Kong Dollar</option>
+                        <option value="KRW">Korean Won</option>
+                        <option value="JPY">Japanese Yen</option>
+                        <option value="NZD">New Zealand Dollar</option>
+                    </select>
+                </div>
+                <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
+                <button class="button is-primary mt-4 is-medium has-text-dark" id="hotel-search">Search</button>
+                <div class="is-size-7 has-text-danger" id="search-warning"></div>
+                <h2 class="mt-4 is-size-5">Previous Searches</h2>
+                <div id="stored-search-container" class="justify-content-center is-flex is-flex-direction-column"></div>
+            </nav>
+            <div class="column is-three-fifths has-background-primary-light p-4 main-column">
+               
 
 
             <!-- card content with hotel price/ratings at the bottom -->
@@ -90,8 +87,7 @@
             </div>
             <div class="has-text-primary-light is-visible" id="city-details">
                 <div>
-                    <a class="teleport-widget-link" href="https://teleport.org/cities/austin/">Life quality score -
-                        Austin</a>
+                    <a class="teleport-widget-link" href="https://teleport.org/cities/austin/"></a>
                     <script async class="teleport-widget-script"
                         data-url="https://teleport.org/cities/austin/widget/scores/?currency=USD" data-max-width="350"
                         data-height="500" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
@@ -99,7 +95,7 @@
             </div>
             <div class="has-text-primary-light is-hidden" id="city-climate">
                 <div>
-                    <a class="teleport-widget-link" href="https://teleport.org/cities/austin/">Climate - Austin</a>
+                    <a class="teleport-widget-link" href="https://teleport.org/cities/austin/"></a>
                     <script async class="teleport-widget-script"
                         data-url="https://teleport.org/cities/austin/widget/weather/?currency=USD" data-max-width="770"
                         data-height="400" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>

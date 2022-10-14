@@ -1,5 +1,72 @@
-var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
+//Local Storage Get
+populateSearches();
+function populateSearches() {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  var storedSearchContainer = $('#stored-search-container');
+  if(storedSearchContainer.length > 0)
+  {
+    storedSearchContainer.empty();
+  }
+  if(storedSearches)
+  {
+    for(let i = storedSearches.length - 1; i >= 0; i--)
+    {
+      var newButton = $('<button>');
+      newButton.attr("class", "button is-primary mt-4 is-medium is-fullwidth is-flex-direction-column");
+      var buttonTitle = $('<h2>');
+      buttonTitle.attr("class", "has-text-dark has-text-weight-semibold is-size-6")
+      buttonTitle.text(storedSearches[i].cityName);
+      newButton.append(buttonTitle);
+      var buttonDesc = $('<p>');
+      buttonDesc.attr("class", "has-text-dark is-size-7");
+      buttonDesc.text(`${storedSearches[i].maximumBudget} ${storedSearches[i].currencyType}`);
+      newButton.append(buttonDesc);
+      newButton.on("click", {cityName: extractSubstring(storedSearches[i].cityName), currencyType: storedSearches[i].currencyType, maximumBudget: storedSearches[i].maximumBudget},
+      function(event) {
+        clearCards();
+        getHotelInfo(event, event.data.cityName, event.data.currencyType, event.data.maximumBudget);
+      })
+      storedSearchContainer.append(newButton);
+    }
+  }
+}
 
+function storeSearch(cityName, currencyType, maximumBudget) {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  var searchObject = {
+    "cityName" : cityName,
+    "currencyType" : currencyType,
+    "maximumBudget" : maximumBudget
+  };
+  if(storedSearches && storedSearches.length >= 5)
+  {
+    if(!storedSearches.some(function(element, index, array) {
+      return JSON.stringify(element) === JSON.stringify(searchObject);
+    }))
+    {
+      storedSearches.shift();
+      storedSearches.push(searchObject);
+    }
+  }
+  else if(!storedSearches) 
+  {
+    storedSearches = [];
+    storedSearches.push(searchObject);
+  }
+  else 
+  {
+    if(!storedSearches.some(function(element, index, array) {
+      return JSON.stringify(element) === JSON.stringify(searchObject);
+    }))
+    {
+      storedSearches.push(searchObject);
+    }
+  }
+  localStorage.setItem("searches", JSON.stringify(storedSearches));
+  populateSearches();
+}
+// Hotels API
+var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
 var dayIn = moment().format("DD");
 var monthIn = moment().format("MM");
 var yearIn = moment().format("YYYY");
@@ -17,16 +84,8 @@ const options = {
 };
 
 var btn = document.querySelector('#search-button');
-// createCard ("","","","","");
-function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl) {
 
-  // hotelName = "Hotel";
-  // hotelScore = "10";
-  // hotelCode = "USD";
-  // hotelMaxPrice = "500";
-  // hotelImageUrl = "Picture";
-
-                  
+function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl) {   
   var cardContainer = document.querySelector("#card-container");
   var card = document.createElement('div');
   card.setAttribute("class", "card mb-4");
@@ -64,13 +123,23 @@ function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelIma
 
   }
 
+//take more limited information from the autocomplete because the api starts to malfunction with more information
+function extractSubstring(cityName)
+{
+  var regex = /.+,/;
+  var matches = cityName.match(regex);
+  if(matches)
+  {
+    cityName = matches[0];
+  }
+  return cityName;
+}
 
+// listen for a click
+// go get the users data
+// reach into the thml and grab the area w/ the user input
+// drill down into that obj and grab the actual data and put it in aa var call cityName
 function getHotelInfo (event, cityName, currencyType, maximumBudget) {
-
-
-    // console.log(hotelMinRating + "rating");
-    // hotelMinRating*=5;
-    // console.log(hotelMinRating);
     // insert data into first url
     console.log(cityName);
     fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
@@ -79,8 +148,6 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
             console.log(response);
             const gaiaId = response.sr[0].gaiaId;
             console.log(gaiaId);
-            // console.log('{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}');
-
             const options2 = {
                 method: 'POST',
                 headers: {
@@ -117,7 +184,6 @@ function getHotelInfo (event, cityName, currencyType, maximumBudget) {
                 .catch(err => console.log(err));
         })
         .catch(err => console.error(err));
-
 }
 var citiesTab = $('#city-tab');
 var searchButton = $('#hotel-search');
@@ -153,10 +219,10 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-
-    clearCards();
-
-    getHotelInfo(e, cityName, currencyType, maximumBudget);
+  storeSearch(cityName, currencyType, maximumBudget);
+  cityName = extractSubstring(cityName);
+  clearCards();
+  getHotelInfo(e, cityName, currencyType, maximumBudget);
 }
 
 function clearCards () {
@@ -166,8 +232,6 @@ function clearCards () {
       cardClearer.removeChild(cardClearer.lastChild);
     }
   }
-  
-
 }
 
 //swaps the city detail tab based on which one is focused.
@@ -384,8 +448,3 @@ function addressAutocomplete(containerElement, callback, options) {
   }, {
       placeholder: "Enter a city name here"
   });
-
-
-
-  
-  
