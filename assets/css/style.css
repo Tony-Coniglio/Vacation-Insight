@@ -12,6 +12,11 @@
     background: var(--background-info-light-2);
 }
 
+#stored-search-container button{
+  white-space: normal;
+  flex: 1;
+}
+
 /* classes that make showing elements through jquery easier */
 .is-hidden {
     visibility: hidden;
@@ -88,19 +93,19 @@
 
   /* card frame */
 
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
-  .responsive {
-    max-width: 100%;
-    height: auto;
-  }
-  #images{
-    text-align:center;
-    margin:50px auto; 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.responsive {
+  max-width: 100%;
+  height: auto;
+}
+#images{
+  text-align:center;
+  margin:50px auto; 
 }
 #images a{
     margin:0px 20px;
@@ -108,3 +113,8 @@
     text-decoration:none;
     color:black;
  }
+
+  .result-card {
+    margin-bottom: 20px;
+    border: 1px solid orange;
+  }
