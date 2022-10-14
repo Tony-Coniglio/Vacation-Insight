@@ -23,10 +23,10 @@ The website grabs the 5 most recent unique search parameters from local storage 
 
 
 ### Autocomplete API
-
+For the Autocomplete API I went with the Geoapify API. What it does is once you start typing it will show 5 results that start with the first 3 letters and onwards. Once you select one and click it. It will populate in the search bar and give you the city state and county. Then once you fill out the rest of the information it will populate the rest of the info for what area you picked.
 
 ### Widgets
-
+For the widgets I used the Teleport API's Widgets. Those widgets will give you a lot of information on the city's data and also the weather. Also with those widgets if you want more info then you can click the link at the bottom of the widget and it will take you to their website where it can better inform you of certain info. You can also scroll through and select different cities.
 
 ## Website Preview
 ![Vacation Insight Webpage Preview](./assets/images/preview.png)
