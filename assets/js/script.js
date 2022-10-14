@@ -1,4 +1,5 @@
 //Local Storage Get
+populateSearches();
 function populateSearches() {
   var storedSearches = JSON.parse(localStorage.getItem("searches"));
   var storedSearchContainer = $('#stored-search-container');
@@ -8,7 +9,7 @@ function populateSearches() {
   }
   if(storedSearches)
   {
-    for(let i = 0; i < storedSearches.length; i++)
+    for(let i = storedSearches.length - 1; i >= 0; i--)
     {
       var newButton = $('<button>');
       newButton.attr("class", "button is-primary mt-4 is-medium is-fullwidth is-flex-direction-column");
@@ -20,11 +21,15 @@ function populateSearches() {
       buttonDesc.attr("class", "has-text-dark is-size-7");
       buttonDesc.text(`${storedSearches[i].maximumBudget} ${storedSearches[i].currencyType}`);
       newButton.append(buttonDesc);
+      newButton.on("click", {cityName: extractSubstring(storedSearches[i].cityName), currencyType: storedSearches[i].currencyType, maximumBudget: storedSearches[i].maximumBudget},
+      function(event) {
+        clearCards();
+        getHotelInfo(event, event.data.cityName, event.data.currencyType, event.data.maximumBudget);
+      })
       storedSearchContainer.append(newButton);
     }
   }
 }
-populateSearches();
 
 function storeSearch(cityName, currencyType, maximumBudget) {
   var storedSearches = JSON.parse(localStorage.getItem("searches"));
@@ -58,6 +63,7 @@ function storeSearch(cityName, currencyType, maximumBudget) {
     }
   }
   localStorage.setItem("searches", JSON.stringify(storedSearches));
+  populateSearches();
 }
 // Hotels API
 var requestURL = 'https://hotels4.p.rapidapi.com/properties/v2/list?currency';
@@ -77,8 +83,45 @@ const options = {
     }
 };
 
-// reach into the html and grab the button
 var btn = document.querySelector('#search-button');
+
+function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl) {   
+  var cardContainer = document.querySelector("#card-container");
+  var card = document.createElement('div');
+  card.setAttribute("class", "card mb-4");
+  cardContainer.append(card);
+
+  var cardContent = document.createElement('div');
+  cardContent.setAttribute("class", "card-content");
+  card.append(cardContent);
+
+  var figure = document.createElement("figure");
+  figure.setAttribute("class", "image is-2by1");
+  var hotelImage = document.createElement("img");
+  hotelImage.setAttribute("src", hotelImageUrl);
+  figure.append(hotelImage);
+  cardContent.append(figure);
+
+  var subtitle = document.createElement('p');
+  subtitle.setAttribute("class", "subtitle has-text-weight-bold");
+  subtitle.innerHTML += hotelName;
+  cardContent.append(subtitle);
+
+  var footer = document.createElement('footer');
+  footer.setAttribute("class", "card-footer");
+  card.append(footer);
+
+  var footerItem1 = document.createElement("p");
+  footerItem1.setAttribute("class", "card-footer-item");
+  footerItem1.innerHTML += "Hotel Rating: " + hotelScore + "/10";
+  footer.append(footerItem1);
+
+  var footerItem2 = document.createElement("p");
+  footerItem2.setAttribute("class", "card-footer-item");
+  footerItem2.innerHTML += "Hotel Price: " + hotelPriceActual + "\t" + hotelCode ;
+  footer.append(footerItem2);
+
+  }
 
 //take more limited information from the autocomplete because the api starts to malfunction with more information
 function extractSubstring(cityName)
@@ -93,13 +136,10 @@ function extractSubstring(cityName)
 }
 
 // listen for a click
-function getHotelInfo (event, cityName) {
-    // go get the users data
-    // reach into the thml and grab the area w/ the user input
-    // drill down into that obj and grab the actual data and put it in aa var call cityName
-
-
-
+// go get the users data
+// reach into the thml and grab the area w/ the user input
+// drill down into that obj and grab the actual data and put it in aa var call cityName
+function getHotelInfo (event, cityName, currencyType, maximumBudget) {
     // insert data into first url
     console.log(cityName);
     fetch('https://hotels4.p.rapidapi.com/locations/v3/search?q=' + cityName + '&locale=en_US&langid=1033&siteid=300000001', options)
@@ -108,8 +148,6 @@ function getHotelInfo (event, cityName) {
             console.log(response);
             const gaiaId = response.sr[0].gaiaId;
             console.log(gaiaId);
-            // console.log('{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}');
-
             const options2 = {
                 method: 'POST',
                 headers: {
@@ -117,19 +155,28 @@ function getHotelInfo (event, cityName) {
                     'X-RapidAPI-Key': '83010fd117mshd9d07434275d9cfp12f58ajsn5ea49c1c3a87',
                     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
                 },
-                body: '{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":200,"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":100}}}'
+                body: '{"currency":"' + currencyType + '","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"' + gaiaId + '"},"checkInDate":{"day":' + dayIn + ',"month":' + monthIn + ',"year":' + yearIn + '},"checkOutDate":{"day":' + dayOut + ',"month":' + monthOut + ',"year":' + yearOut + '},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":20,"sort":"DISTANCE","filters":{"price":{"max":' + maximumBudget + ',"min":100}}}'
             };
             console.log(options2.body);
             fetch(requestURL, options2)
                 .then(response2 => response2.json())
                 .then(response2 => {
                     var hotelData = response2.data.propertySearch.properties;
+                    console.log(hotelData)
+                    
                     for (var i = 0; i < hotelData.length; i++) {
-                        console.log(hotelData[i].name);
-                        console.log(hotelData[i].reviews.score);
-                        console.log(hotelData[i].price.lead.currencyInfo.code);
-                        console.log(response2.data.propertySearch.filterMetadata.priceRange.max);
-                        console.log(hotelData[i].propertyImage.image.url);
+                        
+                        var hotelName = hotelData[i].name;
+                        var hotelScore = hotelData[i].reviews.score;
+                        var hotelCode = hotelData[i].price.lead.currencyInfo.code;
+                        var hotelMaxPrice = response2.data.propertySearch.filterMetadata.priceRange.max;
+                        var hotelPriceActual = hotelData[i].price.lead.amount;
+                        var hotelImageUrl = hotelData[i].propertyImage.image.url;
+                        
+                    
+                        // create an html element w/ js
+                        createCard (hotelName, hotelScore, hotelCode, hotelPriceActual, hotelImageUrl);
+
                     }
 
                     console.log(response2);
@@ -137,7 +184,6 @@ function getHotelInfo (event, cityName) {
                 .catch(err => console.log(err));
         })
         .catch(err => console.error(err));
-
 }
 var citiesTab = $('#city-tab');
 var searchButton = $('#hotel-search');
@@ -166,16 +212,27 @@ function searchHotels(e)
 		errMsg += "<p>Please enter a number for the budget.</p>";
 	}
 
+	var hotelMinRating = $('#hotel-rating-select').val();
+
 	if(errMsg.length > 0)
 	{
 		$('#search-warning').append(errMsg);
 		return;
 	}
+  storeSearch(cityName, currencyType, maximumBudget);
   cityName = extractSubstring(cityName);
-  //storeSearch(cityName, currencyType, maximumBudget);
-  //getHotelInfo(e, cityName);
+  clearCards();
+  getHotelInfo(e, cityName, currencyType, maximumBudget);
 }
 
+function clearCards () {
+  var cardClearer = document.querySelector("#card-container");
+  if (cardClearer.children.length > 0) {
+    while (cardClearer.firstChild) {
+      cardClearer.removeChild(cardClearer.lastChild);
+    }
+  }
+}
 
 //swaps the city detail tab based on which one is focused.
 function citiesTabClicked (event)
