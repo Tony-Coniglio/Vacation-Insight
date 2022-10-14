@@ -32,7 +32,7 @@ For the widgets I used the Teleport API's Widgets. Those widgets will give you a
 ![Vacation Insight Webpage Preview](./assets/images/preview.png)
 
 ## Website Link
-To view the Vacation Insight webpage, go to https://tony-coniglio.github.io/Project-One/ and start searching for some hotels.
+To view the Vacation Insight webpage, go to https://tony-coniglio.github.io/Vacation-Insight/ and start searching for some hotels.
 
 ## Authors
 Payton Ray
