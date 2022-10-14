@@ -1,8 +1,30 @@
 //Local Storage Get
 function populateSearches() {
   var storedSearches = JSON.parse(localStorage.getItem("searches"));
-  //add dom stuff, call search function
+  var storedSearchContainer = $('#stored-search-container');
+  if(storedSearchContainer.length > 0)
+  {
+    storedSearchContainer.empty();
+  }
+  if(storedSearches)
+  {
+    for(let i = 0; i < storedSearches.length; i++)
+    {
+      var newButton = $('<button>');
+      newButton.attr("class", "button is-primary mt-4 is-medium is-fullwidth is-flex-direction-column");
+      var buttonTitle = $('<h2>');
+      buttonTitle.attr("class", "has-text-dark has-text-weight-semibold is-size-6")
+      buttonTitle.text(storedSearches[i].cityName);
+      newButton.append(buttonTitle);
+      var buttonDesc = $('<p>');
+      buttonDesc.attr("class", "has-text-dark is-size-7");
+      buttonDesc.text(`${storedSearches[i].maximumBudget} ${storedSearches[i].currencyType}`);
+      newButton.append(buttonDesc);
+      storedSearchContainer.append(newButton);
+    }
+  }
 }
+populateSearches();
 
 function storeSearch(cityName, currencyType, maximumBudget) {
   var storedSearches = JSON.parse(localStorage.getItem("searches"));
@@ -57,6 +79,18 @@ const options = {
 
 // reach into the html and grab the button
 var btn = document.querySelector('#search-button');
+
+//take more limited information from the autocomplete because the api starts to malfunction with more information
+function extractSubstring(cityName)
+{
+  var regex = /.+,/;
+  var matches = cityName.match(regex);
+  if(matches)
+  {
+    cityName = matches[0];
+  }
+  return cityName;
+}
 
 // listen for a click
 function getHotelInfo (event, cityName) {
@@ -137,8 +171,9 @@ function searchHotels(e)
 		$('#search-warning').append(errMsg);
 		return;
 	}
-  storeSearch(cityName, currencyType, maximumBudget);
-//    getHotelInfo(e, cityName);
+  cityName = extractSubstring(cityName);
+  //storeSearch(cityName, currencyType, maximumBudget);
+  //getHotelInfo(e, cityName);
 }
 
 
@@ -173,7 +208,7 @@ function addressAutocomplete(containerElement, callback, options) {
 	inputElement.setAttribute("id", "hotel-city");
     containerElement.appendChild(inputElement);
   
-    // add input field clear button
+    // add clear button
     var clearButton = document.createElement("div");
     clearButton.classList.add("clear-button");
     addIcon(clearButton);
@@ -192,11 +227,10 @@ function addressAutocomplete(containerElement, callback, options) {
 
     var focusedItemIndex;
   
-    /* Execute a function when someone writes in the text field: */
     inputElement.addEventListener("input", function(e) {
       var currentValue = this.value;
   
-      /* Close any already open dropdown list */
+      //Closes dropdown list
       closeDropDownList();
   
       // Cancel previous request promise
@@ -211,10 +245,7 @@ function addressAutocomplete(containerElement, callback, options) {
         return false;
       }
   
-      // Show clearButton when there is a text
-      clearButton.classList.add("visible");
-  
-      /* Create a new promise and send geocoding request */
+      // Create a new promise and send geocoding request 
       var promise = new Promise((resolve, reject) => {
         currentPromiseReject = reject;
         var apiKey = "c9fd996424244ac8b4f40e121b6056c8";
@@ -223,10 +254,9 @@ function addressAutocomplete(containerElement, callback, options) {
         if (options.type) {
             url += `&type=${options.type}`;
         }
-  
+        //Checks call
         fetch(url)
           .then(response => {
-            // check if the call was successful
             if (response.ok) {
               response.json().then(data => resolve(data));
             } else {
@@ -238,25 +268,25 @@ function addressAutocomplete(containerElement, callback, options) {
       promise.then((data) => {
         currentItems = data.features;
   
-        /*create a DIV element that will contain the items (values):*/
+        // Creates div for item values
         var autocompleteItemsElement = document.createElement("div");
         autocompleteItemsElement.setAttribute("class", "autocomplete-items");
         containerElement.appendChild(autocompleteItemsElement);
   
-        /* For each item in the results */
+        // For the items in the result
         data.features.forEach((feature, index) => {
-          /* Create a DIV element for each element: */
+        //creats div elements for values
           var itemElement = document.createElement("DIV");
-          /* Set formatted address as item value */
+         //sets the format for the address
           itemElement.innerHTML = feature.properties.formatted;
   
-          /* Set the value for the autocomplete text field and notify: */
+          //Set the value fot the autocomplete and notify
           itemElement.addEventListener("click", function(e) {
             inputElement.value = currentItems[index].properties.formatted;
   
             callback(currentItems[index]);
   
-            /* Close the list of autocompleted values: */
+            // Close autocomplete values
             closeDropDownList();
           });
   
@@ -269,7 +299,7 @@ function addressAutocomplete(containerElement, callback, options) {
       });
     });
   
-    /* Add support for keyboard navigation */
+    // Gives keyboard function
     inputElement.addEventListener("keydown", function(e) {
       var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
       if (autocompleteItemsElement) {
@@ -296,7 +326,7 @@ function addressAutocomplete(containerElement, callback, options) {
         }
       } else {
         if (e.keyCode == 40) {
-          /* Open dropdown list again */
+          //Open drop down menu
           var event = document.createEvent('Event');
           event.initEvent('input', true, true);
           inputElement.dispatchEvent(event);
@@ -311,7 +341,7 @@ function addressAutocomplete(containerElement, callback, options) {
         items[i].classList.remove("autocomplete-active");
       }
   
-      /* Add class "autocomplete-active" to the active element*/
+      // Add class autocomplete-active
       items[index].classList.add("autocomplete-active");
   
       // Change input value and notify
@@ -340,8 +370,7 @@ function addressAutocomplete(containerElement, callback, options) {
       buttonElement.appendChild(svgElement);
     }
     
-      /* Close the autocomplete dropdown when the document is clicked. 
-        Skip, when a user clicks on the input field */
+      // Closes the autocomplete dropdown when a city is clicked
     document.addEventListener("click", function(e) {
       if (e.target !== inputElement) {
         closeDropDownList();
@@ -355,21 +384,7 @@ function addressAutocomplete(containerElement, callback, options) {
   
   }
   
-//   addressAutocomplete(document.getElementById("autocomplete-container"), (data) => {
-//     console.log("Selected option: ");
-//     console.log(data);
-//   }, {
-//       placeholder: "Enter an address here"
-//   });
-  
-//   addressAutocomplete(document.getElementById("autocomplete-container-country"), (data) => {
-//     console.log("Selected country: ");
-//     console.log(data);
-//   }, {
-//       placeholder: "Enter a country name here",
-//     type: "country"
-//   });
-  
+    //the container for the Enter city
   addressAutocomplete(document.getElementById("autocomplete-container-city"), (data) => {
     console.log("Selected city: ");
     console.log(data);

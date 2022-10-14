@@ -38,19 +38,22 @@
                     </select>
                 </div>
                 <input class="input is-info mt-4" type="text" placeholder="Enter maximum budget" id="hotel-currency-quantity">
-                <button class="button is-primary mt-4 is-medium" id="hotel-search">Search</button>
+                <button class="button is-primary mt-4 is-medium has-text-dark" id="hotel-search">Search</button>
                 <div class="is-size-7 has-text-danger" id="search-warning"></div>
                 <h2 class="mt-4 is-size-5">Previous Searches</h2>
-                
+                <div id="stored-search-container" class="justify-content-center is-flex is-flex-direction-column"></div>
             </nav>
             <div class="column is-three-fifths has-background-primary-light p-4 main-column">
                
+
                 
-                <div class="card">
+<!-- card content with hotel price/ratings at the bottom -->
+
+                <div class="card mb-4">
                     <div class="card-content">
-                      <p class="title">
-                        "insert description of hotel" 
-                      </p>
+                        <figure class="image is-2by1">
+                            <img src="https://bulma.io/images/placeholders/640x320.png">
+                          </figure>
                       <p class="subtitle has-text-weight-bold">
                         name of hotel
                       </p>
@@ -84,12 +87,12 @@
                 </div>
                 <div class="has-text-dark is-visible" id="city-details">
                      <div>
-                        <a class="teleport-widget-link" href="https://teleport.org/cities/tokyo/">Life quality score - Tokyo</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/tokyo/widget/scores/?currency=USD" data-max-width="350" data-height="500" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
+                        <a class="teleport-widget-link" href="https://teleport.org/cities/austin/">Life quality score - Austin</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/austin/widget/scores/?currency=USD" data-max-width="350" data-height="500" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
                     </div>
                 </div>
                 <div class="has-text-dark is-hidden" id="city-climate">
                     <div>
-                        <a class="teleport-widget-link" href="https://teleport.org/cities/tokyo/">Climate - Tokyo</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/tokyo/widget/weather/?currency=USD" data-max-width="770" data-height="400" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
+                        <a class="teleport-widget-link" href="https://teleport.org/cities/austin/">Climate - Austin</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/austin/widget/weather/?currency=USD" data-max-width="770" data-height="400" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
                     </div> 
                 </div>
             </div>

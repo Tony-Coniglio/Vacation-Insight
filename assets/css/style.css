@@ -12,6 +12,11 @@
     background: var(--background-info-light-2);
 }
 
+#stored-search-container button{
+  white-space: normal;
+  flex: 1;
+}
+
 /* classes that make showing elements through jquery easier */
 .is-hidden {
     visibility: hidden;
