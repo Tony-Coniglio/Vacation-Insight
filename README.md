@@ -29,8 +29,10 @@ The website grabs the 5 most recent unique search parameters from local storage 
 
 
 ## Website Preview
+![Vacation Insight Webpage Preview](./assets/images/preview.png)
 
-
+## Website Link
+To view the Vacation Insight webpage, go to https://tony-coniglio.github.io/Project-One/ and start searching for some hotels.
 
 ## Authors
 Payton Ray
