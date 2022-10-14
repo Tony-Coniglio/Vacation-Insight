@@ -96,7 +96,7 @@ function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelIma
   card.append(cardContent);
 
   var figure = document.createElement("figure");
-  figure.setAttribute("class", "image is-2by1");
+  figure.setAttribute("class", "image is-2by1 mb-4");
   var hotelImage = document.createElement("img");
   hotelImage.setAttribute("src", hotelImageUrl);
   figure.append(hotelImage);
@@ -112,12 +112,12 @@ function createCard(hotelName, hotelScore, hotelCode, hotelPriceActual, hotelIma
   card.append(footer);
 
   var footerItem1 = document.createElement("p");
-  footerItem1.setAttribute("class", "card-footer-item");
+  footerItem1.setAttribute("class", "card-footer-item has-text-weight-bold");
   footerItem1.innerHTML += "Hotel Rating: " + hotelScore + "/10";
   footer.append(footerItem1);
 
   var footerItem2 = document.createElement("p");
-  footerItem2.setAttribute("class", "card-footer-item");
+  footerItem2.setAttribute("class", "card-footer-item has-text-weight-bold");
   footerItem2.innerHTML += "Hotel Price: " + hotelPriceActual + "\t" + hotelCode ;
   footer.append(footerItem2);
 
