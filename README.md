@@ -28,10 +28,10 @@ For the hotels.com API we use a fetch within a fetch to accomplish a search of r
 
 
 ## Authors
-Payton Ray
-Tony Coniglio
-Allen Wang
-Mark Bermejo
+Payton Ray,
+Tony Coniglio,
+Allen Wang,
+Mark Bermejo,
 
 ## Version History
 * 0.1
