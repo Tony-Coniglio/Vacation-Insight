@@ -22,7 +22,10 @@ For the hotels.com API we use a fetch within a fetch to accomplish a search of r
 ###
 
 
-###
+### Auto Complete API
+
+
+### Widgets API
 
 
 ###
@@ -32,16 +35,11 @@ For the hotels.com API we use a fetch within a fetch to accomplish a search of r
 
 
 ###
-
-
-###
-
-
-
 
 ## Authors
-
+Payton Ray
 Tony Coniglio
+
 
 
 ## Version History
